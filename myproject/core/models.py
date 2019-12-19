@@ -40,15 +40,34 @@ class Address(models.Model):
         abstract = True
 
 
+class Company(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'empresa'
+        verbose_name_plural = 'empresas'
+
+    def __str__(self):
+        return self.name
+
+
 class Person(TimeStampedModel, Address):
     first_name = models.CharField('nome', max_length=50)
     last_name = models.CharField(
         'sobrenome', max_length=50, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     blocked = models.BooleanField('bloqueado', default=False)
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.SET_NULL,
+        related_name='companies',
+        null=True,
+        blank=True
+    )
 
     class Meta:
-        ordering = ['first_name']
+        ordering = ('first_name',)
         verbose_name = 'contato'
         verbose_name_plural = 'contatos'
 
