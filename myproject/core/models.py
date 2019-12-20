@@ -1,6 +1,8 @@
 from django.db import models
 from django.shortcuts import resolve_url as r
 from localflavor.br.br_states import STATE_CHOICES
+from .managers import PersonManager
+
 
 PHONE_TYPE = (
     ('pri', 'principal'),
@@ -41,7 +43,7 @@ class Address(models.Model):
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
 
     class Meta:
         ordering = ('name',)
@@ -65,6 +67,8 @@ class Person(TimeStampedModel, Address):
         null=True,
         blank=True
     )
+
+    objects = PersonManager()
 
     class Meta:
         ordering = ('first_name',)

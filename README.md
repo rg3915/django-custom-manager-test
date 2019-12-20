@@ -41,6 +41,17 @@ for person in persons:
     person.save()
 ```
 
+Filtrando os dados:
+
+```
+persons = Person.objects.filter(company__name='WTTD', first_name__icontains='an')
+persons.count()
+3  # nesse exemplo aleatório
+```
+
+
+
+
 TODO
 
 Testar o manager

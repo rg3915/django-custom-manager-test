@@ -11,7 +11,7 @@ def home(request):
     return render(request, 'index.html')
 
 
-class PersonList(NameSearchMixin, ListView):
+class PersonList(ListView):
     model = Person
     paginate_by = 10
 
@@ -22,4 +22,5 @@ person_create = CreateView.as_view(model=Person, form_class=PersonForm)
 
 person_update = UpdateView.as_view(model=Person, form_class=PersonForm)
 
-person_delete = DeleteView.as_view(model=Person, success_url=r('core:person_list'))
+person_delete = DeleteView.as_view(
+    model=Person, success_url=r('core:person_list'))
